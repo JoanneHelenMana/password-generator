@@ -1,7 +1,9 @@
 import random
 import string
+from passwordstrength.passwordmeter import PasswordStrength
 
-password = []
+
+passwordList = []
 characters = []
 lowercase = list(string.ascii_lowercase)
 uppercase = list(string.ascii_uppercase)
@@ -13,7 +15,7 @@ while True:
 
     if 0 < length <= 50:
 
-        print(f"Reply 'yes' or 'no' to include your password requirements.\n")
+        print(f"\nReply 'yes' or 'no' to include your password requirements.\n")
 
         inputLowercase = str(input(f"Does your password require lowercase?: "))
         if inputLowercase == 'yes':
@@ -33,10 +35,14 @@ while True:
 
         for i in range(length):
             randomCharacter = random.choice(characters)
-            password.append(randomCharacter)
+            passwordList.append(randomCharacter)
         break
 
     elif length <= 0 or length > 50:
         print("Number out of range.")
 
-print(f"Password generated: {''.join(password)}")
+password = ''.join(passwordList)
+print(f"\nPassword generated: {password}")
+
+strength = PasswordStrength(password)
+print(f"Rating: {strength.rating()}")
